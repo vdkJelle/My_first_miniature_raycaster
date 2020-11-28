@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/01 12:27:52 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 15:43:37 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:23:22 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,13 @@ int			check_map(t_map *map)
 			if (ft_strchr("NSWE", map->array[y][x]))
 			{
 				players++;
-				map->mov.posx = x;
-				map->mov.posy = y;
+				map->mov.posx = x + .5;
+				map->mov.posy = y + .5;
 				if (map->array[y][x] == 'N')
 				{
 					map->mov.dirx = -1;
 					map->mov.diry = 0;
+					map->mov.plane_y = 0.66;
 				}
 				map->array[y][x] = 'x';
 			}

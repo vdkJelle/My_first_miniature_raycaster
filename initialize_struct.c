@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 11:08:21 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 13:15:00 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:09:52 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	initialize_map(t_map *map)
 	map->height = 0;
 	map->width = 0;
 	map->mov.plane_x = 0;
-	map->mov.plane_y = 0.66;
+	map->mov.plane_y = 0;
 	map->mov.time = 0;
 	map->mov.old_time = 0;
 }

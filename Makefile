@@ -6,7 +6,7 @@
 #    By: jelvan-d <jelvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/25 12:35:41 by jelvan-d      #+#    #+#                  #
-#    Updated: 2020/11/28 15:34:53 by jelvan-d      ########   odam.nl          #
+#    Updated: 2020/11/28 17:09:32 by jelvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS			=	initialize_struct\
 					my_mlx_pixel_put\
 					colours\
 					map_utils\
+					raycasting\
 					main
 
 CFILES			=	$(SRCS:%=%.c)
@@ -32,7 +33,7 @@ HFILES			=	-I./cub3d.h\
 					-I./minilibx_mac/mlx.h
 INCLUDES		=	$(HFILES)\
 					$(LIBRARIES)
-FLAGS			=	-Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
 LIBRARIES		=	libft/libft.a\
 					get_next_line/gnl.a\
 					ft_printf/libftprintf.a\
@@ -64,6 +65,11 @@ clean:
 fclean:		clean
 	@echo "Extra cleaning..."
 	@rm -f $(NAME).a
+	@rm -f cub3d
+	@make fclean -C libft
+	@make fclean -C get_next_line
+	@make fclean -C ft_printf
+	@make clean -C minilibx_mac
 
 re:			fclean all
 

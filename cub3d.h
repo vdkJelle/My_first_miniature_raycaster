@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 14:09:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 15:19:46 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:56:56 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ typedef struct		s_mov
 	double		plane_y;
 	double		time;
 	double		old_time;
-	double		camerax;
-	double		raydirx;
-	double		raydiry;
+	double		camera_x;
+	double		raydir_x;
+	double		raydir_y;
 }					t_mov;
 
 typedef struct		s_map
@@ -41,7 +41,7 @@ typedef struct		s_map
 	int		width;
 	int		height;
 	char	**array;
-	char	**floodfill;
+	char	**map;
 	char	*tmp;
 	t_mov	mov;
 }					t_map;
@@ -138,5 +138,11 @@ void				get_colour(t_parser *parser);
 **map_utils.c
 */
 char				**ft_split_calloc(char const *s, int width, int wc);
+
+/*
+**raycasting.c
+*/
+
+void				omgraycasting(t_data *data, t_mov *mov);
 
 #endif
