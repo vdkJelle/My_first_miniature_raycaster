@@ -6,7 +6,7 @@
 #    By: jelvan-d <jelvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/25 12:35:41 by jelvan-d      #+#    #+#                  #
-#    Updated: 2020/11/28 17:09:32 by jelvan-d      ########   odam.nl          #
+#    Updated: 2020/12/03 11:49:25 by jelvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,19 +30,21 @@ HFILES			=	-I./cub3d.h\
 					-I./libft/includes/libft.h\
 					-I./get_next_line/get_next_line.h\
 					-I./ft_printf/printf.h\
-					-I./minilibx_mac/mlx.h
+					-I./minilibx-master/mlx.h
 INCLUDES		=	$(HFILES)\
 					$(LIBRARIES)
 FLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
 LIBRARIES		=	libft/libft.a\
 					get_next_line/gnl.a\
 					ft_printf/libftprintf.a\
-					minilibx_mac/libmlx.a
-					
+					minilibx-master/libmlx_x86_64.a\
+					minilibx-master/mlx_int.h\
+					minilibx-master/mlx.h
+
 all:		$(NAME)
 
 $(NAME): $(OFILES) $(LIBRARIES) 
-	@gcc $(FLAGS) $^ -framework OpenGL -framework AppKit -o $(NAME)
+	gcc $(FLAGS) $^ -Lminilibx-master -lmlx_x86_64 -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 $(LIBRARIES):
 	@echo "Compiling libft..."
@@ -52,10 +54,10 @@ $(LIBRARIES):
 	@echo "Compiling ft_printf..."
 	@make -C ft_printf
 	@echo "Compiling minilibx..."
-	@make -C minilibx_mac
+	@make -C minilibx-master
 
 %.o: %.c $(HFILES)
-	@gcc $(FLAGS) $(HFILES) -c $< -o $@
+	gcc $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 	@echo "Created $@"
 
 clean:
@@ -69,7 +71,7 @@ fclean:		clean
 	@make fclean -C libft
 	@make fclean -C get_next_line
 	@make fclean -C ft_printf
-	@make clean -C minilibx_mac
+	@make clean -C minilibx-master
 
 re:			fclean all
 

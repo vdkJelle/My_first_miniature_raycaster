@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 14:09:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:56:56 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/12/10 14:44:57 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "./minilibx_mac/mlx.h"
 # include <stdlib.h>
 # include <math.h>
+# include <stdio.h>
 
 typedef struct		s_mov
 {
@@ -27,11 +28,17 @@ typedef struct		s_mov
 	double		diry;
 	double		plane_x;
 	double		plane_y;
-	double		time;
-	double		old_time;
 	double		camera_x;
 	double		raydir_x;
 	double		raydir_y;
+	int			fwd;
+	int			back;
+	int			strafe_l;
+	int			strafe_r;
+	int			rot_l;
+	int			rot_r;
+	double		movspd;
+	double		rotspd;
 }					t_mov;
 
 typedef struct		s_map
@@ -84,7 +91,9 @@ typedef struct		s_data
 	void		*mlx;
 	void		*mlx_win;
 	void		*img;
+	void		*img2;
 	char		*addr;
+	char		*addr2;
 	int			bpp;
 	int			length;
 	int			endian;

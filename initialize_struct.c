@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 11:08:21 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:09:52 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/12/10 17:30:41 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@ static void	initialize_map(t_map *map)
 	map->width = 0;
 	map->mov.plane_x = 0;
 	map->mov.plane_y = 0;
-	map->mov.time = 0;
-	map->mov.old_time = 0;
+	map->mov.movspd = 0.1;
+	map->mov.rotspd = 0.35;
+	map->mov.fwd = 0;
+	map->mov.back = 0;
+	map->mov.strafe_l = 0;
+	map->mov.strafe_r = 0;
+	map->mov.rot_l = 0;
+	map->mov.rot_r = 0;
 }
 
 static void	initialize_error(t_error *error)

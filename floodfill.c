@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/01 12:27:52 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:23:22 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/12/03 13:07:24 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,12 @@ static int	floodfill(t_map *map)
 		x++;
 	}
 	x = 0;
-	ft_printf("--------------\n");
-	while (map->array[x])
-	{
-		ft_printf("%s\n", map->array[x]);
-		x++;
-	}
+	// ft_printf("--------------\n");
+	// while (map->array[x])
+	// {
+	// 	ft_printf("%s\n", map->array[x]);
+	// 	x++;
+	// }
 	return (count);
 }
 
@@ -163,8 +163,10 @@ int			check_map(t_map *map)
 			if (ft_strchr("NSWE", map->array[y][x]))
 			{
 				players++;
-				map->mov.posx = x + .5;
-				map->mov.posy = y + .5;
+				ft_printf("x = %i\ty = %i\n", x, y);
+				map->mov.posy = x + .5;
+				map->mov.posx = y + .5;
+				printf("posx = %f\tposy = %f\n", map->mov.posx, map->mov.posy);
 				if (map->array[y][x] == 'N')
 				{
 					map->mov.dirx = -1;

@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/28 16:12:35 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 17:07:05 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/12/10 14:59:47 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,16 @@ static void	draw_wall(double perpwalldist, t_data *data, int x, int side, int ma
 	if (end >= data->parser.res_height)
 		end = data->parser.res_height - 1;
 	color = RED;
-    if (side == 1) {color = color / 2;}
+    if (side == 1) 
+		color = (color>>1) & 83557711;
 	for (int i = 0; i < data->parser.res_height; i++)
 	{
 		if (i < start)
-			my_mlx_pixel_put(data->img, x, i, 0x00000000);
+			my_mlx_pixel_put(data, x, i, 0x00000000);
 		else if (i >= end)
-			my_mlx_pixel_put(data->img, x, i, 0x00000000);
+			my_mlx_pixel_put(data, x, i, 0x00000000);
 		else
-			my_mlx_pixel_put(data->img, x, i, 0x00FF0000);
+			my_mlx_pixel_put(data, x, i, color);
 	}	
 }
 
@@ -59,6 +60,7 @@ void		omgraycasting(t_data *data, t_mov *mov)
 	int step_y;
 	int hit;
 	int side;
+	// printf("begin of raycasting: posx: %f\tposy: %f\n", mov->posx, mov->posy);
 
 	x = 0;
 	while (x < data->parser.res_width)
@@ -115,4 +117,5 @@ void		omgraycasting(t_data *data, t_mov *mov)
 		draw_wall(perpwalldist, data, x, side, map_x, map_y);
 		x++;
 	}
+	// printf("end of raycasting: posx: %f\tposy: %f\n", mov->posx, mov->posy);
 }

@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 16:30:55 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/07/08 17:53:51 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2020/12/03 11:24:11 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_writeline(char **ret, char **line, int i)
 
 int		get_next_line(int fd, char **line)
 {
-	static char			*ret[OPEN_MAX];
+	static char			*ret[_SC_OPEN_MAX];
 	char				buf[BUFFER_SIZE + 1];
 	int					i;
 
