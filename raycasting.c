@@ -6,116 +6,76 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/28 16:12:35 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/12/10 14:59:47 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/03/02 14:21:15 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
-#define RED 0x00FF0000
-#define GREEN 0x0000FF00
-#define BLUE 0x000000FF
-#define WHITE 0x00000000
-#define YELLOW 0x00FFFF00
 
-static void	draw_wall(double perpwalldist, t_data *data, int x, int side, int map_x, int map_y)
+static void	draw_wall(t_data *data, int x, int i, t_draw *draw)
 {
-	int wallheight;
-	int start;
-	int end;
-	int	color;
-
-	wallheight = (int)(data->parser.res_height / perpwalldist);
-	start = -wallheight / 2 + data->parser.res_height / 2;
-	if (start < 0)
-		start = 0;
-	end = wallheight / 2 + data->parser.res_height / 2;
-	if (end >= data->parser.res_height)
-		end = data->parser.res_height - 1;
-	color = RED;
-    if (side == 1) 
-		color = (color>>1) & 83557711;
-	for (int i = 0; i < data->parser.res_height; i++)
-	{
-		if (i < start)
-			my_mlx_pixel_put(data, x, i, 0x00000000);
-		else if (i >= end)
-			my_mlx_pixel_put(data, x, i, 0x00000000);
-		else
-			my_mlx_pixel_put(data, x, i, color);
-	}	
+	draw->double_col += draw->step;
+	draw->col = (int)draw->double_col;
+	if (draw->col >= data->texture[draw->tx].height)
+		draw->col = data->texture[draw->tx].height - 1;
+	draw->colour = my_mlx_get_pixel(data->texture[draw->tx],
+			draw->row, draw->col);
+	my_mlx_pixel_put(data, x, i, draw->colour);
 }
 
-void		omgraycasting(t_data *data, t_mov *mov)
+static void	draw_x(double perpwalldist, t_data *data, t_mov *mov)
 {
-	int	x;
-	int	map_x;
-	int map_y;
-	double sidedist_x;
-	double sidedist_y;
-	double deltadist_x;
-	double deltadist_y;
-	double perpwalldist;
-	int step_x;
-	int step_y;
-	int hit;
-	int side;
-	// printf("begin of raycasting: posx: %f\tposy: %f\n", mov->posx, mov->posy);
+	t_draw	draw;
 
-	x = 0;
-	while (x < data->parser.res_width)
+	ft_bzero(&draw, sizeof(draw));
+	get_draw_info(&draw, perpwalldist, data->texture, data->parser.map.mov);
+	draw.height = (int)(data->parser.res_height / perpwalldist);
+	draw.start = -draw.height / 2 + data->parser.res_height / 2;
+	if (draw.start < 0)
+		draw.start = 0;
+	draw.end = draw.height / 2 + data->parser.res_height / 2;
+	if (draw.end >= data->parser.res_height)
+		draw.end = data->parser.res_height;
+	draw.step = 1.0 * data->texture[draw.tx].height / draw.height;
+	draw.double_col = (draw.start - data->parser.res_height / 2
+			+ draw.height / 2) * draw.step;
+	draw.i = 0;
+	while (draw.i < data->parser.res_height)
 	{
-		mov->camera_x = 2 * x / (double)data->parser.res_width - 1;
-		mov->raydir_x = mov->dirx + mov->plane_x * mov->camera_x;
-		mov->raydir_y = mov->diry + mov->plane_y * mov->camera_x;
-		map_x = (int)mov->posx;
-		map_y = (int)mov->posy;
-		deltadist_x = fabs(1 / mov->raydir_x);
-		deltadist_y = fabs(1 / mov->raydir_y);
-		hit = 0;
-		if (mov->raydir_x < 0)
-		{
-			step_x = -1;
-			sidedist_x = (mov->posx - map_x) * deltadist_x;
-		}
+		if (draw.i < draw.start)
+			my_mlx_pixel_put(data, mov->x, draw.i, data->parser.trgb_ceil);
+		else if (draw.i >= draw.end)
+			my_mlx_pixel_put(data, mov->x, draw.i, data->parser.trgb_floor);
 		else
-		{
-			step_x = 1;
-			sidedist_x = (map_x + 1.0 - mov->posx) * deltadist_x;
-		}
-		if (mov->raydir_y < 0)
-		{
-			step_y = -1;
-			sidedist_y = (mov->posy - map_y) * deltadist_y;
-		}
-		else
-		{
-			step_y = 1;
-			sidedist_y = (map_y + 1.0 - mov->posy) * deltadist_y;
-		}
-		while (hit == 0)
-		{
-			if (sidedist_x < sidedist_y)
-			{
-				sidedist_x += deltadist_x;
-				map_x += step_x;
-				side = 0;
-			}
-			else
-			{
-				sidedist_y += deltadist_y;
-				map_y += step_y;
-				side = 1;
-			}
-			if (data->parser.map.map[map_x][map_y] == '1')
-				hit = 1;
-		}
-		if (side == 0)
-			perpwalldist = (map_x - mov->posx + (1 - step_x) / 2) / mov->raydir_x;
-		else
-			perpwalldist = (map_y - mov->posy + (1 - step_y) / 2) / mov->raydir_y;
-		draw_wall(perpwalldist, data, x, side, map_x, map_y);
-		x++;
+			draw_wall(data, mov->x, draw.i, &draw);
+		draw.i++;
 	}
-	// printf("end of raycasting: posx: %f\tposy: %f\n", mov->posx, mov->posy);
+}
+
+void	omg_raycasting(t_data *data, t_mov *mov)
+{
+	t_ray	ray;
+
+	mov->x = 0;
+	mov->sprite.vis = 0;
+	ft_bzero(mov->sprite.loc, sizeof(t_pos) * mov->sprite.num);
+	while (mov->x < data->parser.res_width)
+	{
+		initialize_values(&ray, mov, data->parser.res_width);
+		find_intersect(&ray, mov, data->parser.map.map);
+		if (mov->side == 0)
+			ray.perpwalldist = (ray.map.x - mov->posx
+					+ (1 - ray.step.x) / 2) / mov->raydir_x;
+		else
+			ray.perpwalldist = (ray.map.y - mov->posy
+					+ (1 - ray.step.y) / 2) / mov->raydir_y;
+		draw_x(ray.perpwalldist, data, mov);
+		mov->sprite.zbuf[mov->x] = ray.perpwalldist;
+		mov->x++;
+	}
+	if (mov->sprite.vis > 0)
+	{
+		sort_sprites(&mov->sprite, mov->sprite.vis);
+		omg_spritescasting(data, mov);
+	}
 }

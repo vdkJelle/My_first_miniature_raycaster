@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 16:15:05 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/05/29 12:47:11 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/02/03 17:13:34 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static void	get_colour_ceiling(char *line, t_parser *parser, int i)
 	parser->ceiling_r = ft_atoi(line + i);
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
-	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')) && line[i])
+	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')))
 		i++;
 	parser->ceiling_g = ft_atoi(line + i);
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
-	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')) && line[i])
+	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')))
 		i++;
 	parser->ceiling_b = ft_atoi(line + i);
 	while (line[i] >= '0' && line[i] <= '9')
@@ -52,12 +52,12 @@ static void	get_colour_floor(char *line, t_parser *parser, int i)
 	parser->floor_r = ft_atoi(line + i);
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
-	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')) && line[i])
+	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')))
 		i++;
 	parser->floor_g = ft_atoi(line + i);
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
-	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')) && line[i])
+	while ((line[i] == ' ' || (line[i] == ',' && line[i + 1] != ',')))
 		i++;
 	parser->floor_b = ft_atoi(line + i);
 	while (line[i] >= '0' && line[i] <= '9')
@@ -79,7 +79,7 @@ static void	get_string(char *line, int i, char *str)
 	j = 0;
 	while (line[i] == ' ' && line[i])
 		i++;
-	while (line[i])
+	while (line[i] && line[i] != ' ')
 	{
 		str[j] = line[i];
 		i++;
@@ -115,29 +115,26 @@ static void	get_int(char *line, t_parser *parser, int i)
 		parser->res_width = -1;
 }
 
-int			fill_parser(char *line, t_parser *parser)
+int	fill_parser(char *line, t_parser *parser, int i)
 {
-	int	i;
-
-	i = 0;
 	while (line[i] == ' ' && line[i])
 		i++;
 	check_encounters(line, i, parser);
-	if (line[i] == 'R')
+	if (line[i] == 'R' && !parser->map.begin)
 		get_int(line, parser, i + 1);
-	else if (line[i] == 'N' && line[i + 1] == 'O')
+	else if (line[i] == 'N' && line[i + 1] == 'O' && !parser->map.begin)
 		get_string(line, i + 2, parser->no_wall);
-	else if (line[i] == 'S' && line[i + 1] == 'O')
+	else if (line[i] == 'S' && line[i + 1] == 'O' && !parser->map.begin)
 		get_string(line, i + 2, parser->so_wall);
-	else if (line[i] == 'W' && line[i + 1] == 'E')
+	else if (line[i] == 'W' && line[i + 1] == 'E' && !parser->map.begin)
 		get_string(line, i + 2, parser->we_wall);
-	else if (line[i] == 'E' && line[i + 1] == 'A')
+	else if (line[i] == 'E' && line[i + 1] == 'A' && !parser->map.begin)
 		get_string(line, i + 2, parser->ea_wall);
-	else if (line[i] == 'S' && line[i + 1] != 'O')
+	else if (line[i] == 'S' && line[i + 1] != 'O' && !parser->map.begin)
 		get_string(line, i + 1, parser->obj_sprite);
-	else if (line[i] == 'F')
+	else if (line[i] == 'F' && !parser->map.begin)
 		get_colour_floor(line, parser, i + 1);
-	else if (line[i] == 'C')
+	else if (line[i] == 'C' && !parser->map.begin)
 		get_colour_ceiling(line, parser, i + 1);
 	else if ((line[i] == '1' || line[i] == '0') && parser->map.end != 1)
 		strjoin_map(line, parser);

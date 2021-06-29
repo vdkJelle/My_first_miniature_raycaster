@@ -6,191 +6,101 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/01 12:27:52 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/12/03 13:07:24 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/01/29 16:52:13 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static	int	map_error_check(t_map *map, int x, int y)
+static int	check_done(t_map *map)
 {
-	if (!map->array[x - 1][y - 1])
-		return (-1);
-	if (!map->array[x - 1][y])
-		return (-1);
-	if (!map->array[x - 1][y + 1])
-		return (-1);
-	if (!map->array[x][y - 1])
-		return (-1);
-	if (!map->array[x][y + 1])
-		return (-1);
-	if (!map->array[x + 1][y - 1])
-		return (-1);
-	if (!map->array[x + 1][y])
-		return (-1);
-	if (!map->array[x + 1][y + 1])
-		return (-1);
-	return (0);
-}
+	int		count;
 
-static	int	is_closed(t_map *map)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (map->array[x])
+	count = 0;
+	map->pos.x = 0;
+	while (map->array[map->pos.x])
 	{
-		y = 0;
-		if (map->array[x][y] == 'x')
-			return (-1);
-		while (map->array[x][y])
+		map->pos.y = 0;
+		while (map->array[map->pos.x][map->pos.y])
 		{
-			if (map->array[x][y] == 'x' && (x == 0 || x == map->height - 1))
-				return (-1);
-			if (map->array[x][y] == 'x' || ft_strchr("NWSE", map->array[x][y]))
-				if (map_error_check(map, x, y) == -1)
-					return (-1);
-			y++;
+			count += is_done(map->array, map->pos.y, map->pos.x, map->height);
+			map->pos.y++;
 		}
-		x++;
+		map->pos.x++;
 	}
-	return (0);
-}
-
-static	int	is_done(char **map, int y, int x, int height)
-{
-	int	changed;
-
-	changed = 0;
-	if (map[x][y] == 'x' && x != 0 && x != (height - 1) && y > 0)
-	{
-		if (ft_strchr("02 ", map[x - 1][y - 1]) && map[x - 1][y - 1])
-			changed++;
-		if (ft_strchr("02 ", map[x - 1][y]) && map[x - 1][y])
-			changed++;
-		if (ft_strchr("02 ", map[x - 1][y + 1]) && map[x - 1][y + 1])
-			changed++;
-		if (ft_strchr("02 ", map[x][y - 1]) && map[x][y - 1])
-			changed++;
-		if (ft_strchr("02 ", map[x][y + 1]) && map[x][y + 1])
-			changed++;
-		if (ft_strchr("02 ", map[x + 1][y - 1]) && map[x + 1][y - 1])
-			changed++;
-		if (ft_strchr("02 ", map[x + 1][y]) && map[x + 1][y])
-			changed++;
-		if (ft_strchr("02 ", map[x + 1][y + 1]) && map[x + 1][y + 1])
-			changed++;
-	}
-	return (changed);
-}
-
-static void	convert_x(char **map, int y, int x, int height)
-{
-	if (map[x][y] == 'x' && x != 0 && x != (height - 1) && y > 0)
-	{
-		if (ft_strchr("02 ", map[x - 1][y - 1]) && map[x - 1][y - 1])
-			map[x - 1][y - 1] = 'x';
-		if (ft_strchr("02 ", map[x - 1][y]) && map[x - 1][y])
-			map[x - 1][y] = 'x';
-		if (ft_strchr("02 ", map[x - 1][y + 1]) && map[x - 1][y + 1])
-			map[x - 1][y + 1] = 'x';
-		if (ft_strchr("02 ", map[x][y - 1]) && map[x][y - 1])
-			map[x][y - 1] = 'x';
-		if (ft_strchr("02 ", map[x][y + 1]) && map[x][y + 1])
-			map[x][y + 1] = 'x';
-		if (ft_strchr("02 ", map[x + 1][y - 1]) && map[x + 1][y - 1])
-			map[x + 1][y - 1] = 'x';
-		if (ft_strchr("02 ", map[x + 1][y]) && map[x + 1][y])
-			map[x + 1][y] = 'x';
-		if (ft_strchr("02 ", map[x + 1][y + 1]) && map[x + 1][y + 1])
-			map[x + 1][y + 1] = 'x';
-	}
+	return (count);
 }
 
 static int	floodfill(t_map *map)
 {
-	int x;
-	int y;
-	int	count;
+	int		count;
 
 	count = 0;
-	x = 0;
-	while (map->array[x])
+	map->pos.x = 0;
+	while (map->array[map->pos.x])
 	{
-		y = 0;
-		while (map->array[x][y])
+		map->pos.y = 0;
+		while (map->array[map->pos.x][map->pos.y])
 		{
-			convert_x(map->array, y, x, map->height);
-			y++;
+			convert_x(map->array, map->pos.y, map->pos.x, map->height);
+			map->pos.y++;
 		}
-		x++;
+		map->pos.x++;
 	}
-	x = 0;
-	while (map->array[x])
-	{
-		y = 0;
-		while (map->array[x][y])
-		{
-			count += is_done(map->array, y, x, map->height);
-			y++;
-		}
-		x++;
-	}
-	x = 0;
-	// ft_printf("--------------\n");
-	// while (map->array[x])
-	// {
-	// 	ft_printf("%s\n", map->array[x]);
-	// 	x++;
-	// }
+	map->pos.x = 0;
+	count = check_done(map);
 	return (count);
 }
 
-int			check_map(t_map *map)
+static void	starting_direction(t_map *map, int x, int y)
 {
-	int	players;
-	int x;
-	int y;
-
-	players = 0;
-	y = 0;
-	while (map->array[y])
+	if (map->array[x][y] == 'N')
 	{
-		x = 0;
-		while (map->array[y][x])
-		{
-			if (ft_strchr("NSWE", map->array[y][x]))
-			{
-				players++;
-				ft_printf("x = %i\ty = %i\n", x, y);
-				map->mov.posy = x + .5;
-				map->mov.posx = y + .5;
-				printf("posx = %f\tposy = %f\n", map->mov.posx, map->mov.posy);
-				if (map->array[y][x] == 'N')
-				{
-					map->mov.dirx = -1;
-					map->mov.diry = 0;
-					map->mov.plane_y = 0.66;
-				}
-				map->array[y][x] = 'x';
-			}
-			x++;
-		}
-		y++;
+		map->mov.dirx = -1;
+		map->mov.plane_y = 0.66;
 	}
-	if (players != 1)
-		return (-1);
+	else if (map->array[x][y] == 'E')
+	{		
+		map->mov.diry = 1;
+		map->mov.plane_x = 0.66;
+	}
+	else if (map->array[x][y] == 'S')
+	{
+		map->mov.dirx = 1;
+		map->mov.plane_y = -0.66;
+	}
+	else if (map->array[x][y] == 'W')
+	{
+		map->mov.diry = -1;
+		map->mov.plane_x = -0.66;
+	}
+}
+
+void	check_map(t_map *map)
+{
+	while (map->array[map->pos.x])
+	{
+		map->pos.y = 0;
+		while (map->array[map->pos.x][map->pos.y])
+		{
+			if (ft_strchr("NSWE", map->array[map->pos.x][map->pos.y]))
+			{
+				map->players++;
+				map->mov.posy = map->pos.y + .5;
+				map->mov.posx = map->pos.x + .5;
+				starting_direction(map, map->pos.x, map->pos.y);
+				map->array[map->pos.x][map->pos.y] = 'x';
+			}
+			else if (map->array[map->pos.x][map->pos.y] == '2')
+				map->mov.sprite.num++;
+			map->pos.y++;
+		}
+		map->pos.x++;
+	}
+	if (map->players != 1)
+		print_error("Incorrect amount of players on map");
 	while (floodfill(map))
 		floodfill(map);
 	if (is_closed(map) < 0)
-		return (-1);
-	return (0);
+		print_error("Map is not closed");
 }
-
-	// x = 0;
-	// while (map->array[x])
-	// {
-	// 	ft_printf("%s\n", map->array[x]);
-	// 	x++;
-	// }

@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/02 07:28:48 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/07/08 17:54:17 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/03/15 14:48:58 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_strchr_gnl(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin_gnl(char *s1, char const *s2)
+char	*ft_strjoin_gnl(char *s1/*0x12*/, char const *s2)
 {
 	char	*p;
 	int		i;
@@ -81,7 +81,7 @@ char	*ft_strjoin_gnl(char *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	p = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1));
+	p/*0x24*/ = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1));
 	if (p == 0)
 	{
 		free(s1);
@@ -97,7 +97,7 @@ char	*ft_strjoin_gnl(char *s1, char const *s2)
 		p[i + j] = s2[j];
 		j -= -1;
 	}
-	free(s1);
+	free(s1/*0x12*/);
 	p[i + j] = '\0';
-	return (p);
+	return (p/*0x24*/);
 }

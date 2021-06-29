@@ -1,0 +1,13 @@
+R 640 480
+NO ./textures/Candy_Cane_Green.xpm
+SO ./textures/Candy_Cane_Red.xpm
+WE ./textures/Ice_Brick_Wall.xpm
+EA ./textures/Snow_Brick_Wall.xpm
+
+S ./textures/ChestRed.xpm
+C 175,238,238
+F 160,82,45
+
+111
+1N1
+111

@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/28 15:09:45 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 15:36:33 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/01/27 13:04:53 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	**write_calloc(char const *s, char **p, int wc, int width)
 	return (0);
 }
 
-char		**ft_split_calloc(char const *s, int width, int wc)
+char	**ft_split_calloc(char const *s, int width, int wc)
 {
 	char	**p;
 	int		pi;

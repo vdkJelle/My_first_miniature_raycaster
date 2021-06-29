@@ -6,59 +6,44 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 12:01:56 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:33:45 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/01/27 13:01:12 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	map_free(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (map->array[i])
-	{
-		free(map->array[i]);
-		i++;
-	}
-	free(map->array);
-	map->array = NULL;
-}
-
 static char	*ft_strjoin_cub3d(char *s1, char const *s2)
 {
 	char	*p;
-	int		i;
-	int		j;
+	t_ints	idx;
 
-	i = 0;
-	j = 0;
+	idx.x = 0;
+	idx.y = 0;
 	p = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 2));
 	if (!p)
 	{
 		free(s1);
 		return (0);
 	}
-	while (s1[i])
+	while (s1[idx.x])
 	{
-		p[i] = s1[i];
-		i -= -1;
+		p[idx.x] = s1[idx.x];
+		idx.x -= -1;
 	}
-	while (s2[j])
+	while (s2[idx.y])
 	{
-		p[i + j] = s2[j];
-		j -= -1;
+		p[idx.x + idx.y] = s2[idx.y];
+		idx.y -= -1;
 	}
 	free(s1);
-	p[i + j] = '\n';
-	p[i + j + 1] = '\0';
+	p[idx.x + idx.y] = '\n';
+	p[idx.x + idx.y + 1] = '\0';
 	return (p);
 }
 
-void		strjoin_map(char *line, t_parser *parser)
+void	strjoin_map(char *line, t_parser *parser)
 {
-	if (ft_strlen(line) > parser->map.width)
+	if (ft_strlen(line) > (size_t)parser->map.width)
 		parser->map.width = ft_strlen(line);
 	if (!parser->map.begin)
 	{
@@ -74,12 +59,12 @@ void		strjoin_map(char *line, t_parser *parser)
 	parser->map.height++;
 }
 
-void		make_array_map(t_map *map)
+void	make_array_map(t_map *map)
 {
+	map->begin = -1;
 	map->end = 1;
 	map->array = ft_split_calloc(map->tmp, map->width, map->height);
 	map->map = ft_split_calloc(map->tmp, map->width, map->height);
 	if (!map->array)
 		return ;
-	// map_free(map);
 }
