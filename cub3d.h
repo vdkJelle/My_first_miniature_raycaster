@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 14:09:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/01/29 12:11:00 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/04 13:13:04 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # include "./get_next_line/get_next_line.h"
 # include "./libft/includes/libft.h"
-# include "./minilibx_mac/mlx.h"
+# include "./mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
@@ -23,8 +23,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-# define MOVSPD 0.003
-# define ROTSPD 0.003
+# define MOVSPD 0.03
+# define ROTSPD 0.03
 
 typedef struct s_ints
 {

@@ -4,15 +4,15 @@ SO ./textures/Candy_Cane_Red.xpm
 WE ./textures/Ice_Brick_Wall.xpm
 EA ./textures/Snow_Brick_Wall.xpm
 
-S ./textures/
+S ./textures/ChestRed.xpm
 C 175,238,238
 F 160,82,45
 
 11111111
 10011001
 10020201
-110000011
-100000001
+110Q00011
+1000P0001
 1100N0011
 10002011
 11111111

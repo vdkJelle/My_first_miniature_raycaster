@@ -6,7 +6,7 @@
 #    By: jelvan-d <jelvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/25 12:35:41 by jelvan-d      #+#    #+#                  #
-#    Updated: 2021/03/07 20:22:09 by jelvan-d      ########   odam.nl          #
+#    Updated: 2021/10/04 13:02:46 by jelvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,12 @@ FLAGS += -O3
 endif
 LIBRARIES		=	libft/libft.a\
 					get_next_line/gnl.a\
-					minilibx-master/libmlx_x86_64.a
+					mlx/libmlx.a
 
 all:		$(NAME)
 
 $(NAME): $(OFILES) $(LIBRARIES)
-	@gcc $(FLAGS) $^ -Lminilibx-master -lmlx_x86_64 -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@gcc $(FLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(LIBRARIES):
 	@echo "Compiling libft..."
@@ -54,7 +54,7 @@ $(LIBRARIES):
 	@echo "Compiling get_next_line..."
 	@make -C get_next_line
 	@echo "Compiling minilibx..."
-	@make -C minilibx-master
+	@make -C mlx
 
 %.o: %.c
 	@gcc $(FLAGS) -I/usr/include -Imlx_linux -c $< -o $@
@@ -64,7 +64,7 @@ clean:
 	@rm -f $(OFILES)
 	@make clean -C libft
 	@make clean -C get_next_line
-	@make clean -C minilibx-master
+	@make clean -C mlx
 
 fclean:		clean
 	@echo "Extra cleaning..."
