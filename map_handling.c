@@ -6,11 +6,26 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 12:01:56 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/01/27 13:01:12 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/15 12:00:03 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	check_for_invalid_characters(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] != '0' && map[i] != '1' && map[i] != '2' && map[i] != 'N'
+			&& map[i] != 'E' && map[i] != 'S' && map[i] != 'W' && map[i] != ' '
+			&& map[i] != '\n')
+			print_error("Invalid character in map");
+		i++;
+	}
+}
 
 static char	*ft_strjoin_cub3d(char *s1, char const *s2)
 {
@@ -63,6 +78,7 @@ void	make_array_map(t_map *map)
 {
 	map->begin = -1;
 	map->end = 1;
+	check_for_invalid_characters(map->tmp);
 	map->array = ft_split_calloc(map->tmp, map->width, map->height);
 	map->map = ft_split_calloc(map->tmp, map->width, map->height);
 	if (!map->array)

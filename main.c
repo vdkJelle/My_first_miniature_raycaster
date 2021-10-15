@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:43:09 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/02/03 17:43:53 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/15 11:42:29 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_extension(char *file, char *set)
 	while (file[i] == ' ')
 		i--;
 	if (file[i] == set[3] && file[i - 1] == set[2]
-			&& file[i - 2] == set[1] && file[i - 3] == set[0])
+		&& file[i - 2] == set[1] && file[i - 3] == set[0])
 		return (0);
 	return (1);
 }
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 	if (ft_strlen(argv[1]) < 4 || check_extension(argv[1], ".cub"))
 		print_error("Please provide a .cub file");
 	if (argc == 3 && !ft_strncmp(argv[2], "--save", 6)
-			&& ft_strlen(argv[2]) == 6)
+		&& ft_strlen(argv[2]) == 6)
 		make_bmp(argv[1]);
 	else if (argc == 3)
 		print_error("Invalid arguments provided");

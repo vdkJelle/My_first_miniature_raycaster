@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/27 12:42:15 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/01/30 10:40:38 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/13 13:43:03 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	check_validity(t_parser *parser)
 		|| parser->ceiling_b < 0 || parser->ceiling_b > 255)
 		return (print_error("\nPlease enter a valid ceiling colour range"));
 	if (parser->floor_r < 0 || parser->floor_r > 255 || parser->floor_g < 0
-		|| parser->floor_g > 255 || parser->floor_b < 0 || parser->floor_b > 255)
+		|| parser->floor_g > 255 || parser->floor_b < 0
+		|| parser->floor_b > 255)
 		return (print_error("Please enter a valid floor colour range"));
 	if (parser->error.seen_r > 1 || parser->error.seen_no > 1
 		|| parser->error.seen_so > 1 || parser->error.seen_we > 1

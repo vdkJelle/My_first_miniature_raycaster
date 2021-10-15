@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 11:08:21 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/02/03 17:35:14 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/15 11:41:54 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static void	check_texture_addr(t_texture *text)
 
 void	set_textures(t_data *data, t_texture *text)
 {
-	text[0].img = mlx_xpm_file_to_image(data->mlx, data->parser.no_wall
-			, &text[0].width, &text[0].height);
-	text[1].img = mlx_xpm_file_to_image(data->mlx, data->parser.ea_wall
-			, &text[1].width, &text[1].height);
-	text[2].img = mlx_xpm_file_to_image(data->mlx, data->parser.so_wall
-			, &text[2].width, &text[2].height);
-	text[3].img = mlx_xpm_file_to_image(data->mlx, data->parser.we_wall
-			, &text[3].width, &text[3].height);
+	text[0].img = mlx_xpm_file_to_image(data->mlx, data->parser.no_wall,
+			&text[0].width, &text[0].height);
+	text[1].img = mlx_xpm_file_to_image(data->mlx, data->parser.ea_wall,
+			&text[1].width, &text[1].height);
+	text[2].img = mlx_xpm_file_to_image(data->mlx, data->parser.so_wall,
+			&text[2].width, &text[2].height);
+	text[3].img = mlx_xpm_file_to_image(data->mlx, data->parser.we_wall,
+			&text[3].width, &text[3].height);
 	text[4].img = mlx_xpm_file_to_image(data->mlx,
 			data->parser.obj_sprite, &text[4].width, &text[4].height);
 	check_texture_img(text);
@@ -57,8 +57,8 @@ void	set_textures(t_data *data, t_texture *text)
 			&text[0].bpp, &text[0].length, &text[0].endian);
 	text[1].addr = mlx_get_data_addr(text[1].img,
 			&text[1].bpp, &text[1].length, &text[1].endian);
-	text[2].addr = mlx_get_data_addr(text[2].img, &text[2].bpp
-			, &text[2].length, &text[2].endian);
+	text[2].addr = mlx_get_data_addr(text[2].img, &text[2].bpp,
+			&text[2].length, &text[2].endian);
 	text[3].addr = mlx_get_data_addr(text[3].img,
 			&text[3].bpp, &text[3].length, &text[3].endian);
 	text[4].addr = mlx_get_data_addr(text[4].img,
