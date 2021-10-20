@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 14:09:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/04 13:13:04 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/20 13:30:34 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,8 @@ void			omg_raycasting(t_data *data, t_mov *mov);
 */
 void			find_intersect(t_ray *ray, t_mov *mov, char **map);
 void			initialize_values(t_ray *ray, t_mov *mov, int res_width);
-void			get_draw_info(t_draw *draw, double perpwalldist, t_texture texture[4], t_mov mov);
+void			get_draw_info(t_draw *draw, double perpwalldist,
+					t_texture texture[4], t_mov mov);
 
 /*
 **----------------------------------MOVEMENT.C----------------------------------

@@ -6,13 +6,13 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/01 19:55:53 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2020/12/03 11:23:45 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/20 13:26:39 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int		ft_writeline(char **ret, char **line, int i)
+int	ft_writeline(char **ret, char **line, int i)
 {
 	*line = ft_strdup(*ret, '\n');
 	if (*line == NULL)
@@ -27,7 +27,7 @@ int		ft_writeline(char **ret, char **line, int i)
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char			*ret[OPEN_MAX];
 	char				buf[BUFFER_SIZE + 1];

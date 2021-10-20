@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jelvan-d <jelvan-d@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/01 11:58:46 by jelvan-d          #+#    #+#             */
-/*   Updated: 2019/11/29 11:51:41 by jelvan-d         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_memcmp.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/11/01 11:58:46 by jelvan-d      #+#    #+#                 */
+/*   Updated: 2021/10/20 13:24:33 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	if (n <= 0)
 		return (0);

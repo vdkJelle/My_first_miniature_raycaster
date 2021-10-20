@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jelvan-d <jelvan-d@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/01 13:07:34 by jelvan-d          #+#    #+#             */
-/*   Updated: 2019/11/29 12:02:45 by jelvan-d         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_substr.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/11/01 13:07:34 by jelvan-d      #+#    #+#                 */
+/*   Updated: 2021/10/20 13:25:53 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*p;

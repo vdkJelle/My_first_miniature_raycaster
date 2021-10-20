@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jelvan-d <jelvan-d@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/02 07:28:48 by jelvan-d          #+#    #+#             */
-/*   Updated: 2020/02/01 19:56:35 by jelvan-d         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_next_line_utils_bonus.c                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/01/02 07:28:48 by jelvan-d      #+#    #+#                 */
+/*   Updated: 2021/10/20 13:26:59 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*ft_memmove(void *dst, const void *src)
 	return (dst);
 }
 
-int		ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:43:09 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/15 11:42:29 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/20 14:23:52 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	cub3d(char *file)
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		exit(0);
+	set_textures(&data, data.texture);
 	data.mlx_win = mlx_new_window(data.mlx, data.parser.res_width,
 			data.parser.res_height, "Cub3d");
 	if (!data.mlx_win)
@@ -51,7 +52,6 @@ static void	cub3d(char *file)
 	data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.length,
 			&data.endian);
 	mlx_do_sync(data.mlx);
-	set_textures(&data, data.texture);
 	omg_raycasting(&data, &data.parser.map.mov);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
 	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
