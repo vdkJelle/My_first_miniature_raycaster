@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/27 12:42:15 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/13 13:43:03 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 11:45:34 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,16 @@ int	print_error(char *str)
 
 int	check_validity(t_parser *parser)
 {
-	if (parser->res_width < 1 || parser->res_height < 1)
+	if (parser->res_width < 1 || parser->res_height < 1
+		|| parser->res_width > 2880 || parser->res_height > 5120)
 		return (print_error("Please enter a valid resolution"));
-	if (parser->no_wall[0] == '\0' || parser->so_wall[0] == '\0'
-		|| parser->ea_wall[0] == '\0' || parser->we_wall[0] == '\0'
-		|| parser->obj_sprite[0] == '\0')
+	if (!parser->no_wall || !parser->so_wall || !parser->ea_wall
+		|| !parser->we_wall || !parser->obj_sprite)
 		return (print_error("Please enter valid textures"));
 	if (parser->ceiling_r < 0 || parser->ceiling_r > 255
 		|| parser->ceiling_g < 0 || parser->ceiling_g > 255
 		|| parser->ceiling_b < 0 || parser->ceiling_b > 255)
-		return (print_error("\nPlease enter a valid ceiling colour range"));
+		return (print_error("Please enter a valid ceiling colour range"));
 	if (parser->floor_r < 0 || parser->floor_r > 255 || parser->floor_g < 0
 		|| parser->floor_g > 255 || parser->floor_b < 0
 		|| parser->floor_b > 255)

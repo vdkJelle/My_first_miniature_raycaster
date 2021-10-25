@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 12:01:56 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/15 12:00:03 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 12:13:07 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	strjoin_map(char *line, t_parser *parser)
 	{
 		parser->map.tmp = malloc(sizeof(char));
 		if (!parser->map.tmp)
-			return ;
+			print_error("Malloc failed");
 		parser->map.tmp[0] = '\0';
 	}
 	parser->map.begin = 1;
 	parser->map.tmp = ft_strjoin_cub3d(parser->map.tmp, line);
 	if (!parser->map.tmp)
-		return ;
+		print_error("Malloc failed");
 	parser->map.height++;
 }
 
@@ -80,7 +80,9 @@ void	make_array_map(t_map *map)
 	map->end = 1;
 	check_for_invalid_characters(map->tmp);
 	map->array = ft_split_calloc(map->tmp, map->width, map->height);
+	if (!map->array)
+		print_error("Malloc failed");
 	map->map = ft_split_calloc(map->tmp, map->width, map->height);
 	if (!map->array)
-		return ;
+		print_error("Malloc failed");
 }

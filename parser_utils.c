@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 16:15:05 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/02/03 17:13:34 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 11:54:19 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,23 @@ static void	get_colour_floor(char *line, t_parser *parser, int i)
 
 static void	get_string(char *line, int i, char *str)
 {
-	int	j;
+	int	start;
 	int	wc;
 
 	wc = count_words(line, ' ');
 	if (wc != 2 || line[i] != ' ')
 		return ;
-	j = 0;
 	while (line[i] == ' ' && line[i])
 		i++;
+	start = i;
 	while (line[i] && line[i] != ' ')
-	{
-		str[j] = line[i];
 		i++;
-		j++;
-	}
-	str[j] = '\0';
+	str = ft_substr(str, start, i - start);
+	if (!str)
+		print_error("Malloc failed");
 }
 
-static void	get_int(char *line, t_parser *parser, int i)
+static void	get_resolution(char *line, t_parser *parser, int i)
 {
 	int	wc;
 
@@ -121,7 +119,7 @@ int	fill_parser(char *line, t_parser *parser, int i)
 		i++;
 	check_encounters(line, i, parser);
 	if (line[i] == 'R' && !parser->map.begin)
-		get_int(line, parser, i + 1);
+		get_resolution(line, parser, i + 1);
 	else if (line[i] == 'N' && line[i + 1] == 'O' && !parser->map.begin)
 		get_string(line, i + 2, parser->no_wall);
 	else if (line[i] == 'S' && line[i + 1] == 'O' && !parser->map.begin)

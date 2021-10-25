@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 14:09:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/20 13:30:34 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 11:40:14 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,11 @@ typedef struct s_parser
 {
 	int		res_width;
 	int		res_height;
-	char	no_wall[50];
-	char	so_wall[50];
-	char	we_wall[50];
-	char	ea_wall[50];
-	char	obj_sprite[50];
+	char*	no_wall;
+	char*	so_wall;
+	char*	we_wall;
+	char*	ea_wall;
+	char*	obj_sprite;
 	int		ceiling_r;
 	int		ceiling_g;
 	int		ceiling_b;

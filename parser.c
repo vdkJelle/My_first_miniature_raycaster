@@ -6,13 +6,11 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 15:38:16 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/01/29 17:14:40 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 12:24:27 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 int	parser(t_parser *parser, char *file)
 {
@@ -29,7 +27,7 @@ int	parser(t_parser *parser, char *file)
 	{
 		ret = get_next_line(fd, &line);
 		if (!line)
-			return (-1);
+			print_error("Get next line failed");
 		fill_parser(line, parser, 0);
 		free(line);
 		line = NULL;
@@ -38,6 +36,6 @@ int	parser(t_parser *parser, char *file)
 	if (parser->map.end != 1)
 		return (print_error("Please provide a valid cub file"));
 	if (check_validity(parser) < 0)
-		return (-1);
+		print_error(".cub file invalid");
 	return (0);
 }

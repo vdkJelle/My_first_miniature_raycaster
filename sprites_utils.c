@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 13:08:33 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/01/29 11:59:02 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 12:28:57 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	add_sprite(t_sprite *sprite, int map_x, int map_y, t_mov *mov)
 void	init_sprite(t_sprite *sprite, t_parser parser)
 {
 	sprite->zbuf = ft_calloc(sizeof(double), parser.res_width);
+	if (!sprite->zbuf)
+		print_error("Malloc failed");
 	sprite->loc = ft_calloc(sizeof(t_pos), sprite->num);
-	return ;
+	if (!sprite->loc)
+		print_error("Malloc failed");
 }

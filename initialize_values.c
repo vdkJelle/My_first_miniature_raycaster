@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 11:08:21 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/15 11:41:54 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 11:41:19 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void	initialize_parser(t_parser *parser)
 	ft_bzero(&parser->map, sizeof(parser->map));
 	parser->res_width = 0;
 	parser->res_height = 0;
-	parser->no_wall[0] = '\0';
-	parser->so_wall[0] = '\0';
-	parser->we_wall[0] = '\0';
-	parser->ea_wall[0] = '\0';
-	parser->obj_sprite[0] = '\0';
+	parser->no_wall = NULL;
+	parser->so_wall = NULL;
+	parser->we_wall = NULL;
+	parser->ea_wall = NULL;
+	parser->obj_sprite = NULL;
 	parser->ceiling_r = -1;
 	parser->ceiling_g = -1;
 	parser->ceiling_b = -1;

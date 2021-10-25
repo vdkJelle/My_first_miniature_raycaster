@@ -6,18 +6,11 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:43:09 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/20 14:23:52 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/25 12:29:59 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-/*
-**  to fix:
-**	-- Free 2d array and strjoin if error
-*/
 
 static int	check_extension(char *file, char *set)
 {
@@ -41,12 +34,12 @@ static void	cub3d(char *file)
 	get_colour(&data.parser);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		exit(0);
+		print_error("Mlx initalisation failed");
 	set_textures(&data, data.texture);
 	data.mlx_win = mlx_new_window(data.mlx, data.parser.res_width,
 			data.parser.res_height, "Cub3d");
 	if (!data.mlx_win)
-		exit(0);
+		print_error("Mlx window creation failed");
 	data.img = mlx_new_image(data.mlx, data.parser.res_width,
 			data.parser.res_height);
 	data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.length,
@@ -73,6 +66,6 @@ int	main(int argc, char **argv)
 	else if (argc == 3)
 		print_error("Invalid arguments provided");
 	cub3d(argv[1]);
-	exit (0);
+	exit(0);
 	return (0);
 }
