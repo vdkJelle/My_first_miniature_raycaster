@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 12:01:56 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/25 12:13:07 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 17:52:51 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	strjoin_map(char *line, t_parser *parser)
 
 void	make_array_map(t_map *map)
 {
+	if (map->begin == 0)
+		print_error("Missing map");
 	map->begin = -1;
 	map->end = 1;
 	check_for_invalid_characters(map->tmp);

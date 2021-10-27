@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 11:01:58 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/15 11:43:18 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 13:43:31 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ unsigned int	my_mlx_get_pixel(t_texture img, int y, int x)
 }
 
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->length + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	my_mlx_pixel_put_s(t_data *img, int x, int y, int color)
 {
 	char	*dst;
 

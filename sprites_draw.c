@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 16:15:42 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/25 12:39:19 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 13:43:18 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	draw_sprites(t_draw_sprite *draw, t_data *data, t_sprite sprite)
 						/ draw->height) / 256;
 				draw->colour = my_mlx_get_pixel(data->texture[4],
 						draw->col, draw->row);
-				my_mlx_pixel_put(data, draw->x, draw->y, draw->colour);
+				my_mlx_pixel_put_s(data, draw->x, draw->y, draw->colour);
 				draw->y++;
 			}
 		}

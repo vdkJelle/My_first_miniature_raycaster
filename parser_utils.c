@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 16:15:05 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/25 11:54:19 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 17:43:07 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,11 @@ static void	get_colour_floor(char *line, t_parser *parser, int i)
 		parser->floor_r = -1;
 }
 
-static void	get_string(char *line, int i, char *str)
+static void	get_string(char *line, int i, char **str)
 {
-	int	start;
-	int	wc;
-
-	wc = count_words(line, ' ');
-	if (wc != 2 || line[i] != ' ')
+	if (line[i] != ' ')
 		return ;
-	while (line[i] == ' ' && line[i])
-		i++;
-	start = i;
-	while (line[i] && line[i] != ' ')
-		i++;
-	str = ft_substr(str, start, i - start);
+	*str = ft_strtrim(line + i, " ");
 	if (!str)
 		print_error("Malloc failed");
 }
@@ -113,23 +104,23 @@ static void	get_resolution(char *line, t_parser *parser, int i)
 		parser->res_width = -1;
 }
 
-int	fill_parser(char *line, t_parser *parser, int i)
+void	fill_parser(char *line, t_parser *parser, int i)
 {
-	while (line[i] == ' ' && line[i])
+	while (line[i] && line[i] == ' ')
 		i++;
 	check_encounters(line, i, parser);
 	if (line[i] == 'R' && !parser->map.begin)
 		get_resolution(line, parser, i + 1);
 	else if (line[i] == 'N' && line[i + 1] == 'O' && !parser->map.begin)
-		get_string(line, i + 2, parser->no_wall);
+		get_string(line, i + 2, &parser->no_wall);
 	else if (line[i] == 'S' && line[i + 1] == 'O' && !parser->map.begin)
-		get_string(line, i + 2, parser->so_wall);
+		get_string(line, i + 2, &parser->so_wall);
 	else if (line[i] == 'W' && line[i + 1] == 'E' && !parser->map.begin)
-		get_string(line, i + 2, parser->we_wall);
+		get_string(line, i + 2, &parser->we_wall);
 	else if (line[i] == 'E' && line[i + 1] == 'A' && !parser->map.begin)
-		get_string(line, i + 2, parser->ea_wall);
+		get_string(line, i + 2, &parser->ea_wall);
 	else if (line[i] == 'S' && line[i + 1] != 'O' && !parser->map.begin)
-		get_string(line, i + 1, parser->obj_sprite);
+		get_string(line, i + 1, &parser->obj_sprite);
 	else if (line[i] == 'F' && !parser->map.begin)
 		get_colour_floor(line, parser, i + 1);
 	else if (line[i] == 'C' && !parser->map.begin)
@@ -137,6 +128,7 @@ int	fill_parser(char *line, t_parser *parser, int i)
 	else if ((line[i] == '1' || line[i] == '0') && parser->map.end != 1)
 		strjoin_map(line, parser);
 	else if (parser->map.begin == 1 && *line == '\0')
-		make_array_map(&parser->map);
-	return (0);
+		parser->map.end = 1;
+	else if (line[i])
+		print_error("Invalid identifier in .cub file");
 }

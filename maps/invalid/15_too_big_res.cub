@@ -1,6 +1,6 @@
-R 2560 1440
+R 10000000000000000000 480
 NO ./textures/Candy_Cane_Green.xpm
-SO ./textures/Candy_Cane_Red.xpm
+SO ./textures/Candy_Cane_Red.xpm     
 WE ./textures/Ice_Brick_Wall.xpm
 EA ./textures/Snow_Brick_Wall.xpm
 

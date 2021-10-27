@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/04 14:09:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/25 11:40:14 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 17:55:34 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,11 @@ typedef struct s_parser
 {
 	int		res_width;
 	int		res_height;
-	char*	no_wall;
-	char*	so_wall;
-	char*	we_wall;
-	char*	ea_wall;
-	char*	obj_sprite;
+	char	*no_wall;
+	char	*so_wall;
+	char	*we_wall;
+	char	*ea_wall;
+	char	*obj_sprite;
 	int		ceiling_r;
 	int		ceiling_g;
 	int		ceiling_b;
@@ -224,7 +224,7 @@ void			initialize_parser(t_parser *parser);
 /*
 **--------------------------------PARSER_UTILS.C--------------------------------
 */
-int				fill_parser(char *line, t_parser *parser, int i);
+void			fill_parser(char *line, t_parser *parser, int i);
 
 /*
 **-------------------------------ERROR_HANDLING.C-------------------------------
@@ -258,6 +258,7 @@ void			convert_x(char **map, int y, int x, int height);
 unsigned int	bmp_get_pixel(t_data img, int x, int y);
 unsigned int	my_mlx_get_pixel(t_texture img, int x, int y);
 void			my_mlx_pixel_put(t_data *data, int x, int u, int color);
+void			my_mlx_pixel_put_s(t_data *img, int x, int y, int color);
 
 /*
 **----------------------------------MLX_HOOKS.C---------------------------------

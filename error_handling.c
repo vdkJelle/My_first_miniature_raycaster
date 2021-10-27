@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/27 12:42:15 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/25 11:45:34 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 16:08:31 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,9 @@ void	check_encounters(char *line, int i, t_parser *parser)
 		check_seen_after_map(line, i, parser);
 }
 
-int	print_error(char *str)
-{
-	printf("Error\n%s. You fucking lobster.\n", str);
-	exit (1);
-}
-
 int	check_validity(t_parser *parser)
 {
-	if (parser->res_width < 1 || parser->res_height < 1
-		|| parser->res_width > 2880 || parser->res_height > 5120)
+	if (parser->res_width < 1 || parser->res_height < 1)
 		return (print_error("Please enter a valid resolution"));
 	if (!parser->no_wall || !parser->so_wall || !parser->ea_wall
 		|| !parser->we_wall || !parser->obj_sprite)
@@ -83,7 +76,13 @@ int	check_validity(t_parser *parser)
 		|| parser->error.seen_so > 1 || parser->error.seen_we > 1
 		|| parser->error.seen_ea > 1 || parser->error.seen_s > 1
 		|| parser->error.seen_c > 1 || parser->error.seen_f > 1)
-		return (print_error("Please enter a valid cub file"));
+		return (print_error("Duplicate identifier spotted"));
 	check_map(&parser->map);
 	return (0);
+}
+
+int	print_error(char *str)
+{
+	printf("Error\n%s. You fucking lobster.\n", str);
+	exit (1);
 }

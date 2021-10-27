@@ -6,11 +6,19 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:43:09 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/10/25 12:29:59 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/10/27 14:35:39 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	check_resolution(int *height, int *width)
+{
+	if (*height > 1440)
+		*height = 1440;
+	if (*width > 2560)
+		*width = 2560;
+}
 
 static int	check_extension(char *file, char *set)
 {
@@ -25,37 +33,34 @@ static int	check_extension(char *file, char *set)
 	return (1);
 }
 
-static void	cub3d(char *file)
+static void	cub3d(t_data *data)
 {
-	t_data	data;
-
-	parser(&data.parser, file);
-	init_sprite(&data.parser.map.mov.sprite, data.parser);
-	get_colour(&data.parser);
-	data.mlx = mlx_init();
-	if (!data.mlx)
+	data->mlx = mlx_init();
+	if (!data->mlx)
 		print_error("Mlx initalisation failed");
-	set_textures(&data, data.texture);
-	data.mlx_win = mlx_new_window(data.mlx, data.parser.res_width,
-			data.parser.res_height, "Cub3d");
-	if (!data.mlx_win)
+	set_textures(data, data->texture);
+	data->mlx_win = mlx_new_window(data->mlx, data->parser.res_width,
+			data->parser.res_height, "Cub3d");
+	if (!data->mlx_win)
 		print_error("Mlx window creation failed");
-	data.img = mlx_new_image(data.mlx, data.parser.res_width,
-			data.parser.res_height);
-	data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.length,
-			&data.endian);
-	mlx_do_sync(data.mlx);
-	omg_raycasting(&data, &data.parser.map.mov);
-	mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
-	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
-	mlx_hook(data.mlx_win, 3, 1L << 1, key_release, &data);
-	mlx_hook(data.mlx_win, 17, 0L, cross, &data);
-	mlx_loop_hook(data.mlx, &detect_movement, &data);
-	mlx_loop(data.mlx);
+	data->img = mlx_new_image(data->mlx, data->parser.res_width,
+			data->parser.res_height);
+	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->length,
+			&data->endian);
+	mlx_do_sync(data->mlx);
+	omg_raycasting(data, &data->parser.map.mov);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
+	mlx_hook(data->mlx_win, 17, 0L, cross, data);
+	mlx_loop_hook(data->mlx, &detect_movement, data);
+	mlx_loop(data->mlx);
 }
 
 int	main(int argc, char **argv)
 {
+	t_data	data;
+
 	if (argc != 2 && argc != 3)
 		print_error("Please provide valid arguments");
 	if (ft_strlen(argv[1]) < 4 || check_extension(argv[1], ".cub"))
@@ -65,7 +70,11 @@ int	main(int argc, char **argv)
 		make_bmp(argv[1]);
 	else if (argc == 3)
 		print_error("Invalid arguments provided");
-	cub3d(argv[1]);
+	parser(&data.parser, argv[1]);
+	check_resolution(&data.parser.res_height, &data.parser.res_width);
+	init_sprite(&data.parser.map.mov.sprite, data.parser);
+	get_colour(&data.parser);
+	cub3d(&data);
 	exit(0);
 	return (0);
 }
